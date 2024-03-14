@@ -1,23 +1,23 @@
 name: live_activities
 description: A Flutter plugin to use iOS 16.1+ Live Activities & iPhone 14 Pro Dynamic Island features
-version: 1.9.1+1
+version: 1.9.1+2
 homepage: https://dimitridessus.fr/
 repository: https://github.com/istornz/live_activities
 
 environment:
-  sdk: '>=3.0.3 <4.0.0'
+  sdk: ">=3.0.3 <4.0.0"
   flutter: ">=2.5.0"
 
 screenshots:
-  - description: 'Display a live activity on the iPhone 14 Pro+ dynamic island.'
+  - description: "Display a live activity on the iPhone 14 Pro+ dynamic island."
     path: images/showcase/static/dynamic_island.png
-  - description: 'Display a live activity on the lockscreen.'
+  - description: "Display a live activity on the lockscreen."
     path: images/showcase/static/lockscreen_live_activity.png
-  - description: 'Create a new live activity with the live_activities plugin.'
+  - description: "Create a new live activity with the live_activities plugin."
     path: images/showcase/animations/create_live_activity.gif
-  - description: 'Update a live activity with the live_activities plugin.'
+  - description: "Update a live activity with the live_activities plugin."
     path: images/showcase/animations/update_live_activity.gif
-  - description: 'live_activities plugin logo.'
+  - description: "live_activities plugin logo."
     path: images/logo.jpg
 
 dependencies:
@@ -33,7 +33,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.3
-
 
 flutter:
   plugin:
