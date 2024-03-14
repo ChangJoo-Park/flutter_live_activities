@@ -186,10 +186,12 @@ public class SwiftLiveActivitiesPlugin: NSObject, FlutterPlugin, FlutterStreamHa
 
   @available(iOS 16.1, *)
   func createActivity(data: [String: Any], removeWhenAppIsKilled: Bool, staleIn: Int?, result: @escaping FlutterResult) {
+    print("[SWIFT] createActivity")
     let center = UNUserNotificationCenter.current()
     center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-
+      print("[SWIFT] requestAuthorization")
       if let error = error {
+        print("[SWIFT] requestAuthorization ERROR")
         result(FlutterError(code: "AUTHORIZATION_ERROR", message: "authorization error", details: error.localizedDescription))
       }
     }
@@ -208,6 +210,7 @@ public class SwiftLiveActivitiesPlugin: NSObject, FlutterPlugin, FlutterStreamHa
       let activityContent = ActivityContent(
         state: initialContentState,
         staleDate: staleIn != nil ? Calendar.current.date(byAdding: .minute, value: staleIn!, to: Date.now) : nil)
+      print("[SWIFT] createActivity START!!!! 16.2")
       do {
         deliveryActivity = try Activity.request(
           attributes: liveDeliveryAttributes,
@@ -217,6 +220,7 @@ public class SwiftLiveActivitiesPlugin: NSObject, FlutterPlugin, FlutterStreamHa
         result(FlutterError(code: "LIVE_ACTIVITY_ERROR", message: "can't launch live activity", details: error.localizedDescription))
       }
     } else {
+      print("[SWIFT] createActivity START!!!! 16.2 else")
       do {
         deliveryActivity = try Activity<LiveActivitiesAppAttributes>.request(
           attributes: liveDeliveryAttributes,
@@ -228,10 +232,14 @@ public class SwiftLiveActivitiesPlugin: NSObject, FlutterPlugin, FlutterStreamHa
       }
     }
     if (deliveryActivity != nil) {
+      print("[SWIFT] createActivity deliveryActivity")
+
       if removeWhenAppIsKilled {
+        print("[SWIFT] createActivity removeWhenAppIsKilled")
         appLifecycleLifeActiviyIds.append(deliveryActivity!.id)
       }
       monitorLiveActivity(deliveryActivity!)
+      print("[SWIFT] createActivityENDED")
       result(deliveryActivity!.id)
     }
   }
