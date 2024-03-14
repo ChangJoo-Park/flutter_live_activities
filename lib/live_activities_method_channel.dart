@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -25,10 +26,12 @@ class MethodChannelLiveActivities extends LiveActivitiesPlatform {
 
   @override
   Future init(String appGroupId, {String? urlScheme}) async {
+    log("[la] init started");
     await methodChannel.invokeMethod('init', {
       'appGroupId': appGroupId,
       'urlScheme': urlScheme,
     });
+    log("[la] init ended");
   }
 
   @override
@@ -37,14 +40,19 @@ class MethodChannelLiveActivities extends LiveActivitiesPlatform {
     bool removeWhenAppIsKilled = false,
     Duration? staleIn,
   }) async {
+    log("[la] createActivity started");
+
     // If the duration is less than 1 minute then pass a null value instead of using 0 minutes
     final staleInMinutes =
         (staleIn?.inMinutes ?? 0) >= 1 ? staleIn?.inMinutes : null;
-    return methodChannel.invokeMethod<String>('createActivity', {
+    log("[la] createActivity staleInMinutes: $staleInMinutes");
+    final result = await methodChannel.invokeMethod<String>('createActivity', {
       'data': data,
       'removeWhenAppIsKilled': removeWhenAppIsKilled,
       'staleIn': staleInMinutes,
     });
+    log("[la] createActivity result: $result");
+    return result;
   }
 
   @override
